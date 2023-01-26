@@ -11,7 +11,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Pokemons</h2>
         </template>
         <!-- {{ dump($pokemon) }} -->
-        <div class="text-white mx-auto">
+        <div class="text-white mx-auto bg-black">
             {{ pokemon }}
         </div>
 
