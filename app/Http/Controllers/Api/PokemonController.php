@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PokemonController extends Controller
 {
@@ -16,16 +17,27 @@ class PokemonController extends Controller
     {
         $api = new \GuzzleHttp\Client();
         $response = $api->request('GET','https://pokeapi.co/api/v2/pokemon?limit=20&offset=300');
-        $data = json_decode($response->getBody()->getContents(), true);
+        $datas = json_decode($response->getBody()->getContents(), true);
 
-        $pokemons = [];
+        $pokemon = [];
 
-        foreach ($data['results'] as $pokemon) {
+        foreach ($datas['results'] as $pokemon) {
             $url = $pokemon['url'];
             $apiTwo = new \GuzzleHttp\Client();
             $response = $apiTwo->request('GET', $url);
             $data = json_decode($response->getBody()->getContents(), true);
+            $pokemon[] = [
+                'name' => $pokemon['name'],
+                'url' => $pokemon['url'],
+                'imageOne' => $data['sprites']['other']['home']['front_default'],
+                'imageTwo' => $data['sprites']['front_default'],
+                'imageThree' => $data['sprites']['front_shiny'],
+                'type' => $data['types']['0']['type']['name'],
+            ];
         }
+
+        return Inertia::render('Auth/IndexPokemon', ['pokemon' => $pokemon]);
+        /* return Inertia::render('Auth/IndexPokemon'); */
     }
 
     /**

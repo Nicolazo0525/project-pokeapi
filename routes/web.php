@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PokemonController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+/* Route::get('index-pokemon', function () {
+    return Inertia::render('IndexPokemon');
+})->middleware(['auth', 'verified'])->name('index-pokemon'); */
+Route::get('index-pokemon', [PokemonController::class, 'index'])->name('index-pokemon');
+
+/* Route::group(['prefix' => 'u'], function () {
+    Route::inertia('/index-pokemon', 'IndexPokemon')->name('index-pokemon');
+});
+ */
 require __DIR__.'/auth.php';
