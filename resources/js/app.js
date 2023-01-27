@@ -21,3 +21,7 @@ createInertiaApp({
         color: '#4B5563',
     },
 });
+
+createApp({
+    components:{}
+}).mount('#app')

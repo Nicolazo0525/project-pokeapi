@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\PokemonController;
+use App\Http\Controllers\Api\ViewCharacterController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     return Inertia::render('IndexPokemon');
 })->middleware(['auth', 'verified'])->name('index-pokemon'); */
 Route::get('index-pokemon', [PokemonController::class, 'index'])->name('index-pokemon');
+Route::get('info-character/{id}', [ViewCharacterController::class, 'show'])->name('info-character');
 
 /* Route::group(['prefix' => 'u'], function () {
     Route::inertia('/index-pokemon', 'IndexPokemon')->name('index-pokemon');
